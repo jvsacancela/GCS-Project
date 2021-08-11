@@ -1,3 +1,15 @@
+<?php 
+
+  require_once '../model/conexion.php';
+  require_once '../model/sql.php';
+
+  $consulta = new sql();
+  $consulta_vehiculos = $consulta-> ConsultarVehiculos();
+
+  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,12 +28,12 @@
    
   <div class="d-flex" id="sidebar-principal">
     <div id="sidebar-items">
-      <div class="sidebar-heading "> Usuario </div>
-      <hr>
+      <div class="sidebar-heading "></div>
+
       <div class="list-group list-group-flush my-3" >
-        <a href="../inicio.html" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-home"></i> Inicio</a>
-        <a href="page-vehiculos.html" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-car"></i> Vehiculos</a>
-        <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
+        <a href="../inicio.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-home"></i> Inicio</a>
+        <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-car"></i> Vehiculos</a>
+        <a href="page-clientes.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
         <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-attach"></i> Reportes</a>
       </div>
     </div>
@@ -32,7 +44,7 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
         <div class="d-flex align-items-center">
           <i class="icon ion-md-reorder" id="menu"></i>
-          <h3 class="fs-2 m-0"> Clientes</h3>
+          <h3 class="fs-2 m-0"> Vehiculos</h3>
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -60,45 +72,40 @@
       </nav>
 
     <div class="container-fluid px-4">
-        <div class="row my-5">
-          <h3 class="fs-4 mb-3">Clientes</h3>
+        <div class="row my-5 col-md-11 m-auto">
+          <h3 class="fs-4 mb-3"><a href="" id="btnExport"><i class="icon ion-md-open"></i></a> Vehiculos</h3>
           <input type="text" value="Buscar">
-          <a href=""><i class="icon ion-md-person"></i> Nuevo</a>
+          <a href="forms/add-vehiculos.php"><i class="icon ion-md-add"></i> Nuevo</a>
           <div class="col">
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-hover text-center">
+                
                 <thead>
-                  <th></th>
-                  <th>Cedula</th>
-                  <th>Apellidos</th>
-                  <th>Nombres</th>
-                  <th>Correo</th>
-                  <th>Celular</th>
-                  <th>Direccion</th>
-                  <th>Licencia</th>
+                  <th>Operacion</th>
+                  <th>Placa</th>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Color</th>
+                  <th>Año</th>
+                  <th>Precio de alquiler</th>
                 </thead>
 
                 <tbody>
+                  <?php while($display = $consulta_vehiculos->fetch_assoc()){ ?>
                   <tr>
-                    <td>Action</td>
-                    <td>2312548965</td>
-                    <td>Sacancela Macas</td>
-                    <td>Javier Vicente</td>
-                    <td>javiersacancela@gmail.com</td>
-                    <td>0987454125</td>
-                    <td>16 de Marzo</td>
-                    <td>B</td>
+                    <td>
+                      <a href="" id="btnEdit"><i class="icon ion-md-create"></i></a> 
+                      <a href="" id="btnDelete"><i class="icon ion-md-trash"></i></a>
+                      <a href="" id="btnAlquilar"><i class="icon ion-md-checkmark"></i></a> 
+                    </td>
+                    <td class="text-uppercase"><?php echo $display['VEHICULO_PLACA']; ?></td>
+                    <td><?php echo $display['VEHICULO_MARCA']; ?></td>
+                    <td><?php echo $display['VEHICULO_MODELO']; ?></td>
+                    <td><?php echo $display['VEHICULO_COLOR']; ?></td>
+                    <td><?php echo $display['VEHICULO_AAA']; ?></td>
+                    <td>$ <?php echo $display['VEHICULO_PRECIO']; ?></td>
                   </tr>
-                  <tr>
-                    <td>Action</td>
-                    <td>2321548789</td>
-                    <td>Macas Sacancela</td>
-                    <td>Vicente Javier</td>
-                    <td>vicentemacas@gmail.com</td>
-                    <td>0985326598</td>
-                    <td>Santa Martha</td>
-                    <td>C</td>
-                  </tr>
+                    <?php } ?>
                 </tbody>
               </table>
             </div>

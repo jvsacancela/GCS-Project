@@ -5,7 +5,7 @@
         private $bd;
 
         public function __construct() {
-            $this $bd = new mysqli(SERVIDOR, USUARIO, CLAVE, BDD);
+            $this->bd = new mysqli(SERVIDOR, USUARIO, CLAVE, BDD);
             $this-> bd-> set_charset('utf8');
         }
 
@@ -16,14 +16,20 @@
         }
 
         #Funcion para Agregar Vehiculos
-        public function AgregarVehiculos($vehiculo_placa, $vehiculo_modelo, $vehiculo_color, $vehiculo_marca, $vehiculo_aaa){
-            $resultado = $this->bd->query("INSERT INTO vehiculos (VEHICULO_PLACA, VEHICULO_MODELO, VEHICULO_COLOR, VEHICULO_MARCA, VEHICULO_AAA) VALUES ('$vehiculo_placa', '$vehiculo_modelo', '$vehiculo_color', '$vehiculo_marca', '$vehiculo_aaa')");
+        public function AgregarVehiculos($vehiculo_placa, $vehiculo_marca, $vehiculo_modelo, $vehiculo_color, $vehiculo_aaa, $vehiculo_precio){
+            $resultado = $this->bd->query("INSERT INTO vehiculos (VEHICULO_PLACA, VEHICULO_MARCA, VEHICULO_MODELO, VEHICULO_COLOR, VEHICULO_AAA, VEHICULO_PRECIO) VALUES ('$vehiculo_placa', '$vehiculo_marca', '$vehiculo_modelo', '$vehiculo_color', '$vehiculo_aaa', '$vehiculo_precio')");
             return true;
         }
 
         #Funcion para Consultar Vehiculos
         public function ConsultarVehiculos(){
             $resultado = $this->bd->query("SELECT * FROM vehiculos");
+            return $resultado;
+        }
+
+        #Funcion para Contar Vehiculos
+        public function ContarVehiculos(){
+            $resultado = $this->bd->query("SELECT COUNT(VEHICULO_PLACA) FROM vehiculos");
             return $resultado;
         }
 
@@ -40,14 +46,22 @@
         }
 
         #Funcion para Agregar Clientes
-        public function AgregarClientes($cliente_cedula, $cliente_nombre, $cliente_apellido, $cliente_correo, $cliente_celular, $cliente_direccion, $cliente_licencia){
-            $resultado = $this->bd->query("INSERT INTO cliente (CLIENTE_CEDULA, CLIENTE_NOMBRE, CLIENTE_APELLIDO, CLIENTE_CORREO, CLIENTE_CELULAR, CLIENTE_DIRECCION, CLIENTE_LICENCIA) VALUES ('$cliente_cedula', '$cliente_nombre', '$cliente_apellido', '$cliente_correo', '$cliente_celular', '$cliente_direccion', '$cliente_licencia')");
+        public function AgregarClientes($cliente_id, $cliente_nombre, $cliente_correo, $cliente_celular,$cliente_direccion, $cliente_tipo){
+            $resultado = $this->bd->query("INSERT INTO cliente (CLIENTE_ID, CLIENTE_NOMBRE, CLIENTE_CORREO, CLIENTE_CELULAR, CLIENTE_DIRECCION, TIPO_CLIENTE_TIPO_CLIENTE_ID) VALUES ('$cliente_id', '$cliente_nombre', '$cliente_correo', '$cliente_celular','$cliente_direccion', '$cliente_tipo')");
             return true;
         }
+
+        
 
         #Funcion para Consultar Clientes
         public function ConsultarClientes(){
             $resultado = $this->bd->query("SELECT * FROM cliente");
+            return $resultado;
+        }
+
+        #Funcion para Contar la cantidad de Clientes
+        public function ContarClientes(){
+            $resultado = $this->bd->query("SELECT COUNT(CLIENTE_ID) FROM cliente");
             return $resultado;
         }
 
@@ -63,28 +77,22 @@
             return true;
         }
 
-        #Funcion para Agregar Empresa
-        public function AgregarEmpresa($empresa_ruc, $empresa_nombre, $empresa_direccion, $empresa_detalle, $empresa_correo, $empresa_telefono){
-            $resultado = $this->bd->query("INSERT INTO empresa(EMPRESA_RUC, EMPRESA_NOMBRE, EMPRESA_DIRECCION, EMPRESA_DETALLE, EMPRESA_CORREO, EMPRESA_TELEFONO) VALUES ('$empresa_ruc', '$empresa_nombre', '$empresa_direccion', '$empresa_detalle', '$empresa_correo', '$empresa_correo', '$empresa_telefono')");
-            return true;
+        #Funcion para Consultar Tipo
+        public function ConsultarRazonSocial(){
+            $resultado = $this->bd->query("SELECT * FROM tipo_cliente");
+            return $resultado;
         }
-
-        #Funcion para Consultar Empresa
-        public function ConsultarEmpresa(){
-            $resultado = $this->bd->query("SELECT * FROM empresa");
+        
+        #Funcion para Consultar Alquiler
+        public function ConsultarAlquiler(){
+            $resultado = $this->bd->query("SELECT * FROM alquiler");
             return $resultado;
         }
 
-        #Funcion para Editar Empresa
-        public function UpdateEmpresa(){
-            $resultado = $this->bd->query();
-            return;
-        }
-
-        #Funcion para Eliminar Empresa
-        public function EliminarEmpresa($empresa_ruc){
-            $resultado = $this->bd->query("DELETE FROM empresa WHERE EMPRESA_RUC = '$empresa_ruc'");
-            return true;
+        #Funcion para Contar Alquileres
+        public function ContarAlquiler(){
+            $resultado = $this->bd->query("SELECT COUNT(ALQUILER_CODIGO) FROM alquiler");
+            return $resultado;
         }
 
 

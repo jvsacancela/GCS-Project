@@ -62,7 +62,25 @@
 
 i{
     margin-right: 10px;
+    font-size: 1.4rem;
+
 }
+#btnDelete{
+    color: red; 
+}
+
+#btnEdit{
+    color: green;
+}
+
+#btnExport, #btnFactura{
+    color: orangered;
+}
+
+#btnAlquilar{
+    color: rgb(33, 12, 92);
+}
+
 
 @media (min-width: 768px){
     #sidebar-items{

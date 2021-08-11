@@ -1,3 +1,11 @@
+<?php 
+
+  require_once '../model/conexion.php';
+  require_once '../model/sql.php';
+
+  $consulta = new sql();
+  $consulta_clientes = $consulta-> ConsultarClientes();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,23 +24,21 @@
    
   <div class="d-flex" id="sidebar-principal">
     <div id="sidebar-items">
-      <div class="sidebar-heading "> Usuario </div>
-      <hr>
+      <div class="sidebar-heading "></div>
       <div class="list-group list-group-flush my-3" >
-        <a href="../inicio.html" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-home"></i> Inicio</a>
-        <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-car"></i> Vehiculos</a>
-        <a href="page-clientes.html" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
+        <a href="../inicio.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-home"></i> Inicio</a>
+        <a href="page-vehiculos.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-car"></i> Vehiculos</a>
+        <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
         <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-attach"></i> Reportes</a>
       </div>
     </div>
   
-
     <!---Contenido-->
     <div id="contenido-page">
       <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
         <div class="d-flex align-items-center">
           <i class="icon ion-md-reorder" id="menu"></i>
-          <h3 class="fs-2 m-0"> Vehiculos</h3>
+          <h3 class="fs-2 m-0"> Clientes</h3>
         </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -60,42 +66,40 @@
       </nav>
 
     <div class="container-fluid px-4">
-        <div class="row my-5">
-          <h3 class="fs-4 mb-3">Vehiculos</h3>
+        <div class="row my-5 col-md-11 m-auto">
+          <h3 class="fs-4 mb-3"><a href="" id="btnExport"><i class="icon ion-md-open"></i></a> Clientes</h3>
           <input type="text" value="Buscar">
-          <a href=""><i class="icon ion-md-add"></i> Nuevo</a>
+          <a href="forms/add-clientes.php"><i class="icon ion-md-person"></i> Nuevo</a>
           <div class="col">
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-hover text-center">
                 <thead>
-                  <th></th>
-                  <th>Placa</th>
-                  <th>Marca</th>
-                  <th>Modelo</th>
-                  <th>Color</th>
-                  <th>Año</th>
-                  <th>Precio de alquiler</th>
+                  <th>Operacion</th>
+                  <th>Cedula</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Celular</th>
+                  <th>Direccion</th>
+                  <th>Razon social</th>
                 </thead>
 
                 <tbody>
+                <?php while($display = $consulta_clientes->fetch_assoc()){ ?>
                   <tr>
-                    <td>Action</td>
-                    <td>ABC0123</td>
-                    <td>Toyota</td>
-                    <td>Hilux</td>
-                    <td>Gris</td>
-                    <td>2015</td>
-                    <td>$20.50</td>
+                    <td>
+                      <a href="" id="btnEdit"><i class="icon ion-md-create"></i></a> 
+                      <a href="" id="btnDelete"><i class="icon ion-md-trash"></i></a>
+                      <a href="" id="btnAlquilar"><i class="icon ion-md-checkmark"></i></a>  
+                    </td>
+                    <td><?php echo $display['CLIENTE_ID']; ?></td>
+                    <td><?php echo $display['CLIENTE_NOMBRE']; ?></td>
+                    <td><?php echo $display['CLIENTE_CORREO']; ?></td>
+                    <td><?php echo $display['CLIENTE_CELULAR']; ?></td>
+                    <td><?php echo $display['CLIENTE_DIRECCION']; ?></td>
+                    <td><?php echo $display['TIPO_CLIENTE_TIPO_CLIENTE_ID']; ?></td>
                   </tr>
-                  <tr>
-                    <td>Action</td>
-                    <td>ABC0123</td>
-                    <td>Toyota</td>
-                    <td>Hilux</td>
-                    <td>Gris</td>
-                    <td>2019</td>
-                    <td>$15.00</td>
-                  </tr>
+                  <?php } ?>
+                 
                 </tbody>
               </table>
             </div>

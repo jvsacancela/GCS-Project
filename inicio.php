@@ -1,3 +1,22 @@
+<?php 
+
+  require_once 'model/conexion.php';
+  require_once 'model/sql.php';
+
+  $consulta = new sql();
+  
+  $consulta_alquiler = $consulta-> ConsultarAlquiler();
+  $contar_clientes = $consulta-> ContarClientes()->fetch_assoc();
+  $contar_vehiculos = $consulta-> ContarVehiculos()->fetch_assoc();
+  $contar_alquiler = $consulta-> ContarAlquiler()->fetch_assoc();
+
+  $_contar_clientes = implode($contar_clientes);
+  $_contar_vehiculos = implode($contar_vehiculos);
+  $_contar_alquiler = implode($contar_alquiler);
+  
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,8 +38,8 @@
       <div class="sidebar-heading "></div>
       <div class="list-group list-group-flush my-3" >
         <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-home"></i> Inicio</a>
-        <a href="view/page-vehiculos.html" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-car"></i> Vehiculos</a>
-        <a href="view/page-clientes.html" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
+        <a href="view/page-vehiculos.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-car"></i> Vehiculos</a>
+        <a href="view/page-clientes.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
         <a href="" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-attach"></i> Reportes</a>
       </div>
     </div>
@@ -61,83 +80,55 @@
       <div class="container-fluid px-4">
         <div class="row g-3 my-2">
 
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
               <div><h3>Vehiculos</h3></div>
-              <h1>50</h1>
+              <h1><?php echo $_contar_vehiculos?></h1>
             </div>
           </div>
           
 
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
               <div><h3>Clientes</h3></div>
-              <h1>50</h1>
+              <h1><?php echo $_contar_clientes?></h1>
             </div>
           </div>
 
-          <div class="col-md-3">
-            <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
-              <div><h3>Reservas</h3></div>
-              <h1>50</h1>
-            </div>
-          </div>
-
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
               <div><h3>Alquilados</h3></div>
-              <h1>50</h1>
+              <h1><?php echo $_contar_alquiler ?></h1>
             </div>
           </div>
 
         </div>
 
-        <div class="row my-5">
-          <h3 class="fs-4 mb-3"><i class="icon ion-md-open"></i>Vehiculos alquilados</h3>
+        <div class="row my-5 col-md-11 m-auto">
+          <h3 class="fs-4 mb-3"><a href="" id="btnExport"><i class="icon ion-md-open"></i></a> Vehiculos alquilados</h3>
           <div class="col">
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table class="table table-hover text-center">
                 <thead>
                   <th></th>
-                  <th>Placa</th>
-                  <th>Marca</th>
-                  <th>Modelo</th>
-                  <th>Color</th>
-                  <th>Cliente</th>
-                  <th>Cedula</th>
-                  <th>Fecha inicial</th>
-                  <th>Hora inicial</th>
-                  <th>Precio final</th>
+                  <th>Fecha</th>
+                  <th>Hora</th>
                   <th>Total</th>
+                  <th>Cedula / RUC</th>
+                  <th>Placa</th>
                 </thead>
 
                 <tbody>
+                <?php while($display = $consulta_alquiler->fetch_assoc()){ ?>
                   <tr>
-                    <td>Action</td>
-                    <td>ABC0123</td>
-                    <td>Toyota</td>
-                    <td>Hilux</td>
-                    <td>Gris</td>
-                    <td>Sanchez Jhon</td>
-                    <td>2312457841</td>
-                    <td>12:30</td>
-                    <td>12:30</td>
-                    <td>$123</td>
-                    <td>$123</td>
+                    <td><a href="" id="btnFactura"><i class="icon ion-md-document"></i></a></td>
+                    <td><?php echo $display['ALQUILER_FECHA'];?></td>
+                    <td><?php echo $display['ALQUILER_HORA'];?></td>
+                    <td><?php echo $display['ALQUILER_TOTAL'];?></td>
+                    <td><?php echo $display['CLIENTE_CLIENTE_CEDULA'];?></td>
+                    <td><?php echo $display['VEHICULOS_VEHICULO_PLACA'];?></td>
                   </tr>
-                  <tr>
-                    <td>Action</td>
-                    <td>ABC0123</td>
-                    <td>Toyota</td>
-                    <td>Hilux</td>
-                    <td>Gris</td>
-                    <td>Sanchez Jhon</td>
-                    <td>2312457841</td>
-                    <td>12:30</td>
-                    <td>12:30</td>
-                    <td>$ 123</td>
-                    <td>$ 123</td>
-                  </tr>
+                  <?php } ?>
                 </tbody>
               </table>
             </div>
