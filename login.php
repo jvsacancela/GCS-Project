@@ -80,6 +80,7 @@
         if($consulta_clave->num_rows>0){
             // Sesiones
             $_SESSION['USUARIO_NOMBRE'] = $usuario_nombre;
+            $_SESSION['USUARIO_CEDULA'] = $usuario_cedula;
             header('location: view/inicio.php');
         }else{ 
             ?>

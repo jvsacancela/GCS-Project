@@ -27,6 +27,25 @@
             return $resultado;
         }
 
+        #Consultar PLaca
+        public function ConsultarPlaca($id){
+            $resultado = $this->bd->query("SELECT * FROM vehiculos WHERE VEHICULO_PLACA = '$id'");
+            return $resultado;
+        }
+
+        #Consultar Precio Vehiculo
+        public function ConsultarPrecio($id){
+            $resultado = $this->bd->query("SELECT * FROM vehiculos WHERE VEHICULO_PRECIO = '$id'");
+            return $resultado;
+        }
+
+        #Consultar PLaca
+        public function ConsultarVehiculoAlquilado($id){
+            $resultado = $this->bd->query("SELECT * FROM alquiler WHERE VEHICULOS_VEHICULO_PLACA = '$id'");
+            return $resultado;
+        }
+    
+
         #Funcion para Contar Vehiculos
         public function ContarVehiculos(){
             $resultado = $this->bd->query("SELECT COUNT(VEHICULO_PLACA) FROM vehiculos");
@@ -97,8 +116,8 @@
         }
 
         #Funcion para Alquilar Vehiculos
-        public function AlquilarVehiculos($alquiler_fecha, $alquiler_dias, $alquiler_total, $alquiler_cliente, $alquiler_vehiculo){
-            $resultado = $this->bd->query("INSERT INTO alquiler(ALQUILER_CODIGO, ALQUILER_FECHA, ALQUILER_DIAS, ALQUILER_TOTAL, CLIENTE_CLIENTE_CEDULA, VEHICULOS_VEHICULO_PLACA) VALUES (0, '$alquiler_fecha', '$alquiler_dias', '$alquiler_total', '$alquiler_cliente', '$alquiler_vehiculo')");
+        public function AlquilarVehiculos($alquiler_fecha, $alquiler_dias, $alquiler_total, $alquiler_cliente, $alquiler_vehiculo, $alquiler_responsable){
+            $resultado = $this->bd->query("INSERT INTO alquiler(ALQUILER_CODIGO, ALQUILER_FECHA, ALQUILER_DIAS, ALQUILER_TOTAL, CLIENTE_CLIENTE_CEDULA, VEHICULOS_VEHICULO_PLACA, USUARIO_CEDULA) VALUES (0, '$alquiler_fecha', '$alquiler_dias', '$alquiler_total', '$alquiler_cliente', '$alquiler_vehiculo', '$alquiler_responsable')");
             return true;
         }
 
@@ -127,6 +146,11 @@
         #Actualizar Vehiculos
         public function UpdateVehiculos($vehiculo_placa, $vehiculo_marca, $vehiculo_modelo, $vehiculo_color, $vehiculo_aaa, $vehiculo_precio){
             $resultado = $this->bd->query("UPDATE vehiculos SET VEHICULO_PLACA='$vehiculo_placa', VEHICULO_MODELO='$vehiculo_modelo', VEHICULO_COLOR='$vehiculo_color', VEHICULO_MARCA='$vehiculo_marca', VEHICULO_AAA='$vehiculo_aaa', VEHICULO_PRECIO='$vehiculo_precio' WHERE VEHICULO_PLACA = '$vehiculo_placa'");
+            return $resultado;
+        }
+
+        public function ConsultarResponsable(){
+            $resultado = $this->bd->query("SELECT * FROM usuarios");
             return $resultado;
         }
     }

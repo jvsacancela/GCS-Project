@@ -14,7 +14,6 @@
         $consultar_clientes = $insertar-> ConsultarClienteID($cliente_id);
 
         if($consultar_clientes->num_rows>0){
-            echo "si existe valor";
             ?>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Datos no almacenados</strong> Al parecer existen datos ya existentes
@@ -25,7 +24,6 @@
 
         <?php
         }else{ 
-            echo "no existe valor";
             $cliente_id = $_POST['cliente-id'];
             $cliente_nombre = $_POST['cliente-nombre'];
             $cliente_correo = $_POST['cliente-correo'];

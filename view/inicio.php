@@ -20,6 +20,7 @@
   
   $consulta_cliente = $consulta-> ConsultarClientes();
   $consulta_placa = $consulta-> ConsultarVehiculos();
+  $consulta_responsable = $consulta-> ConsultarResponsable();
 
 ?>
 
@@ -127,9 +128,10 @@
                   <th></th>
                   <th>Fecha de inicio</th>
                   <th>Dias de alquiler</th>
-                  <th>Total</th>
+                  <!--<th>Total</th>-->
                   <th>Cedula / RUC</th>
                   <th>Placa</th>
+                  <th>Responsable</th>
                 </thead>
 
                 <tbody>
@@ -138,9 +140,10 @@
                     <td><a href="../controller/delete_alquiler.php?ALQUILER_CODIGO=<?php echo $display['ALQUILER_CODIGO']?>" id="btnFactura"><i class="icon ion-md-document"></i>Entregar</a></td>
                     <td><?php echo $display['ALQUILER_FECHA'];?></td>
                     <td><?php echo $display['ALQUILER_DIAS'];?></td>
-                    <td><?php echo $display['ALQUILER_TOTAL'];?></td>
+                    <!--<td><?php #echo $display['ALQUILER_TOTAL'];?></td>-->
                     <td><?php echo $display['CLIENTE_CLIENTE_CEDULA'];?></td>
                     <td><?php echo $display['VEHICULOS_VEHICULO_PLACA'];?></td>
+                    <td><?php echo $display['USUARIO_CEDULA'];?></td>
                   </tr>
                   <?php } ?>
                 </tbody>
@@ -169,7 +172,7 @@
         <div class="form-row">
           <div class="col-md-12 mb-3">
             <label for="validationServer01">Fecha</label>
-            <input  disabled type="text" class="form-control datepicker " id="validationServer01" required name="alquiler-fecha">
+            <input  type="date" class="form-control" id="validationServer01" required name="alquiler-fecha">
           </div>
 
           <div class="col-md-12 mb-3">
@@ -180,7 +183,7 @@
           <div class="col-md-12 mb-3">
             <label for="validationServer02">Cliente</label>
             <select name="alquiler-cliente" id="slcat1" class="form-control text-uppercase">
-            <option selected disabled value="">-- SELECCIONAR CLIENTE --</option>
+            <option selected disabled value="">Seleccione cliente</option>
                   <?php while($display = $consulta_cliente->fetch_assoc()){?>
                       <option value="<?php echo $display['CLIENTE_ID']?>">
                         <?php echo $display['CLIENTE_ID']?>
@@ -194,25 +197,40 @@
           <div class="col-md-12 mb-3">
             <label for="validationServer02">Vehiculo</label>
             <select name="alquiler-vehiculo" id="slcat1" class="form-control text-uppercase">
-            <option selected disabled value="">-- SELECCIONAR VEHICULO --</option>
+            <option selected disabled value="">Sleccione vehiculo</option>
                   <?php while($display = $consulta_placa->fetch_assoc()){?>
                       <option value="<?php echo $display['VEHICULO_PLACA']?>">
                         <?php echo $display['VEHICULO_PLACA']?>
-                        <?php echo "-"?>
+                        <?php echo "|"?>
                         <?php echo $display['VEHICULO_MARCA']?>
                         <?php echo $display['VEHICULO_MODELO']?>
-                        <?php echo "-"?>
+                        <?php echo "|"?>
                         <?php echo " $". $display['VEHICULO_PRECIO']?>
                       </option>
                       <?php } ?>                  
               </select> 
           </div>
           
-          <div class="col-md-12 mb-3">
+         <!-- <div class="col-md-12 mb-3">
             <label for="validationServer02">Total a cancelar</label>
-            <input type="text" class="form-control" id="validationServer02" placeholder="Total a cancelar"  required name="alquiler-total"  disabled value="">
+            <input type="text" class="form-control" id="validationServer02" placeholder="Total a cancelar"  required name="alquiler-total"  disabled value="0">
             
+          </div>-->
+
+
+          <div class="col-md-12 mb-3">
+            <label for="validationServer02">Responsable</label>
+            <select name="alquiler-responsable" id="slcat1" class="form-control text-uppercase">
+            <option selected disabled value="">Seleccione vendedor</option>
+                  <?php while($display = $consulta_responsable->fetch_assoc()){?>
+                      <option value="<?php echo $display['USUARIO_CEDULA']?>">
+                        <?php echo $display['USUARIO_NOMBRE']?>
+                      </option>
+                  <?php } ?>                                    
+              </select>
           </div>
+
+
         </div>
 
         <div class="modal-footer">
