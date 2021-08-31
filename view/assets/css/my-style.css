@@ -3,7 +3,7 @@
 }
 
 #sidebar-principal{
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 #sidebar-items{
@@ -107,6 +107,6 @@ a{
     }
 
     #sidebar-principal.toggled #sidebar-items{
-        margin-left: 15rem;
+        margin-left: -15rem;
     }
 }

@@ -2,6 +2,10 @@
 
   session_start();
 
+  if(!isset($_SESSION['USUARIO_NOMBRE'])){
+    header ('Location: ../login.php');
+  }
+
   
   require_once '../model/conexion.php';
   require_once '../model/sql.php';
@@ -41,7 +45,8 @@
 </head>
 <body>
    
-  <div class="d-flex" id="sidebar-principal">
+<div class="d-flex" id="sidebar-principal">
+    
     <div id="sidebar-items">
       <div class="sidebar-heading "></div>
       <div class="list-group list-group-flush my-3" >
@@ -50,7 +55,9 @@
         <a href="page-clientes.php" class="list-group-item list-group-item-action bg-transparent"><i class="icon ion-md-people"></i> Clientes</a>
       </div>
     </div>
-  
+
+
+    
 
     <!---Contenido-->
     <div id="contenido-page">
@@ -71,7 +78,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle second-text fw-bold text-uppercase" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user me-2"></i><?php echo $_SESSION['USUARIO_NOMBRE']?>
+                        <i class="fas fa-user me-2"></i>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="../controller/cerrar_sesion.php">Salir</a></li>
@@ -82,14 +89,13 @@
 
 
       </nav>
-
       <div class="container-fluid px-4">
         <div class="row g-3 my-2">
 
           <div class="col-md-4">
             <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
               <div><h3>Vehiculos</h3></div>
-              <h1><?php echo $_contar_vehiculos?></h1>
+              <h1>500</h1>
             </div>
           </div>
           
@@ -97,14 +103,14 @@
           <div class="col-md-4">
             <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
               <div><h3>Clientes</h3></div>
-              <h1><?php echo $_contar_clientes?></h1>
+              <h1>300</h1>
             </div>
           </div>
 
           <div class="col-md-4">
             <div class="p-3 shadow-sm d-flex justify-content-around align-items-center rounded" id="infocard">
               <div><h3>Alquilados</h3></div>
-              <h1><?php echo $_contar_alquiler ?></h1>
+              <h1>340</h1>
             </div>
           </div>
 
@@ -135,17 +141,18 @@
                 </thead>
 
                 <tbody>
-                <?php while($display = $consulta_alquiler->fetch_assoc()){ ?>
+                
                   <tr>
                     <td><a href="../controller/delete_alquiler.php?ALQUILER_CODIGO=<?php echo $display['ALQUILER_CODIGO']?>" id="btnFactura"><i class="icon ion-md-document"></i>Entregar</a></td>
-                    <td><?php echo $display['ALQUILER_FECHA'];?></td>
-                    <td><?php echo $display['ALQUILER_DIAS'];?></td>
-                    <!--<td><?php #echo $display['ALQUILER_TOTAL'];?></td>-->
-                    <td><?php echo $display['CLIENTE_CLIENTE_CEDULA'];?></td>
-                    <td><?php echo $display['VEHICULOS_VEHICULO_PLACA'];?></td>
-                    <td><?php echo $display['USUARIO_CEDULA'];?></td>
+
+                    <td></td>
+                    <td>/td>
+                    <!--'];?></td>-->
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
-                  <?php } ?>
+                 
                 </tbody>
               </table>
             </div>
@@ -153,8 +160,7 @@
         </div>
       </div>
 
-    </div>    
-  </div>
+    </div>   
 
 
   <!--MODALES-->
@@ -251,9 +257,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
   <script>
-    $('.datepicker').datepicker("setDate", new Date());
-
-
+   
         var el = document.getElementById("sidebar-principal");
         var toggleButton = document.getElementById("menu");
 

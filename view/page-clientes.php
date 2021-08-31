@@ -2,6 +2,10 @@
 
   session_start();
 
+  if(!isset($_SESSION['USUARIO_NOMBRE'])){
+    header ('Location: ../login.php');
+  }
+
   require_once '../model/conexion.php';
   require_once '../model/sql.php';
 

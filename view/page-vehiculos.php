@@ -1,6 +1,10 @@
 <?php 
 
-  session_start();
+session_start();
+
+if(!isset($_SESSION['USUARIO_NOMBRE'])){
+  header ('Location: ../login.php');
+}
   
   require_once '../model/conexion.php';
   require_once '../model/sql.php';
@@ -144,7 +148,7 @@
       <div class="form-row">
         <div class="col-md-12 mb-3">
           <label for="validationServer01">Placa</label>
-          <input type="text" class="form-control " id="validationServer01" placeholder="Número de placa" required name="vehiculo-placa">
+          <input  maxlength="7" minlength="7"  type="text" class="form-control " id="validationServer01" placeholder="Número de placa" required name="vehiculo-placa">
           <div class="valid-feedback">
             Looks good!
           </div>
@@ -176,7 +180,7 @@
 
         <div class="col-md-12 mb-3">
           <label for="validationServer02">Año</label>
-          <input type="text" class="form-control" id="validationServer02" placeholder="Año del vehiculo"  required name="vehiculo-aaa">
+          <input  maxlength="4" minlength="4" type="text" class="form-control" id="validationServer02" placeholder="Año del vehiculo"  required name="vehiculo-aaa">
           <div class="valid-feedback">
             Looks good!
           </div>

@@ -26,11 +26,13 @@
               
               <div class="col-md-12 mb-3">
                 <label for="validationServer02">Correo</label>
-                <input type="email" class="form-control" id="validationServer02" placeholder="Correo electrónico"  required name="cliente-correo">
+                <input type="email" class="form-control" id="mail" placeholder="Correo electrónico"  required name="cliente-correo">
+                <span  style="color: red" id="emailOK"></span>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
               </div>
+
 
               <div class="col-md-12 mb-3">
                 <label for="validationServer02">Celular</label>
@@ -67,3 +69,29 @@
   </div>
 </div>
 
+<script>
+
+document.getElementById('mail').addEventListener('input', function() {
+    campo = event.target;
+    valido = document.getElementById('emailOK');
+        
+    emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+    //Se muestra un texto a modo de ejemplo, luego va a ser un icono
+    if (emailRegex.test(campo.value)) {
+      
+      valido.innerText = "Correo valido";
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    } else {
+      valido.innerText = "Correo incorrecto";
+        
+        if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+
+    }
+    }
+});
+</script>

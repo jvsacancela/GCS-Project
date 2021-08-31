@@ -13,7 +13,7 @@ $consulta_tipo_b = $consulta-> ConsultarRazonSocial()
       <div class="form-row">
         <div class="col-md-12 mb-3">
           <label for="validationServer01">Placa</label>
-          <input  type="text" class="form-control text-uppercase " id="validationServer01" placeholder="Número de placa" required name="vehiculo-placa" value="<?php echo $display['VEHICULO_PLACA'] ?>">
+          <input maxlength="7" minlength="7"  type="text" class="form-control text-uppercase " id="validationServer01" placeholder="Número de placa" required name="vehiculo-placa" value="<?php echo $display['VEHICULO_PLACA'] ?>">
           <div class="valid-feedback">
             Looks good!
           </div>
@@ -45,7 +45,7 @@ $consulta_tipo_b = $consulta-> ConsultarRazonSocial()
 
         <div class="col-md-12 mb-3">
           <label for="validationServer02">Año</label>
-          <input type="text" class="form-control" id="validationServer02" placeholder="Año del vehiculo"  required name="vehiculo-aaa" value="<?php echo $display['VEHICULO_AAA'] ?>">
+          <input maxlength="4" minlength="4" type="text" class="form-control" id="validationServer02" placeholder="Año del vehiculo"  required name="vehiculo-aaa" value="<?php echo $display['VEHICULO_AAA'] ?>">
           <div class="valid-feedback">
             Looks good!
           </div>
